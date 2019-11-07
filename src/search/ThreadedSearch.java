@@ -34,6 +34,7 @@ public class ThreadedSearch<T> implements Searcher<T>, Runnable {
         Answer answer = new Answer();
         //create arrays that hold the threadSearch
         Thread[] threads = new Thread[numThreads];
+    
         for(int i=0; i<numThreads; i++) {
             int begin = (list.size()*i)/ numThreads;
             int end = (list.size()*(i+1))/ numThreads;
@@ -50,8 +51,14 @@ public class ThreadedSearch<T> implements Searcher<T>, Runnable {
 
     @Override
     public void run() {
-        // Delete this `throw` when you actually implement this method.
-        throw new UnsupportedOperationException();
+        for (int i=0; i<end; i++){
+            if (answer.getAnswer() == true){
+              break;
+            }
+            if (list.get(i).equals(target)){
+              answer.setAnswer(true);
+            }
+          }
     }
 
     private class Answer {
